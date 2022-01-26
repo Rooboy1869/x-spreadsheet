@@ -154,7 +154,7 @@
         xs.on('cell-selected', (cell, ri, ci, data) => {
           console.log('cell:', cell, ', ri:', ri, ', ci:', ci);
 
-          if (cell.checkbox) {
+          if (cell && cell.checkbox) {
             const d = data.rows.getCell(ri, ci);
             d.checked = !d.checked;
             xs.reRender();

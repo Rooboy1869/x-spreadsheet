@@ -425,9 +425,10 @@ function editorSetOffset() {
 
 function editorSet() {
   const { editor, data } = this;
-  if (data.settings.mode === 'read') return;
+  const selectedCell = data.getSelectedCell();
+  if (data.settings.mode === 'read' || selectedCell.checkbox) return;
   editorSetOffset.call(this);
-  editor.setCell(data.getSelectedCell(), data.getSelectedValidator());
+  editor.setCell(selectedCell, data.getSelectedValidator());
   clearClipboard.call(this);
 }
 
