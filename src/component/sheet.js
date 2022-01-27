@@ -119,15 +119,15 @@ function showTooltip(self, evt) {
   const { data, targetEl } = self;
 
   // Get the cell the mouse is over
-  const cRect = data.getCellRectByXY(evt.offsetX, evt.offsetY);
-  const cell = data.getCell(cRect.ri, cRect.ci);
-  if (cell && JSON.stringify(cell) !== tooltipCell) {
+  const rect = data.getCellRectByXY(evt.offsetX, evt.offsetY);
+  const cell = data.getCell(rect.ri, rect.ci);
+  if (cell && JSON.stringify(rect) !== tooltipCell) {
     // Destroy any current tooltip
     destroyTooltip(self);
 
     // Create and show the new tooltip
     if (cell.tooltip) {
-      tooltipCell = JSON.stringify(cell);
+      tooltipCell = JSON.stringify(rect);
       tooltipEl = h('div', `${cssPrefix}-tooltip`).html(cell.tooltip).show();
       targetEl.el.appendChild(tooltipEl.el);
       const elBox = tooltipEl.box();
@@ -138,11 +138,7 @@ function showTooltip(self, evt) {
         .css(
           'left',
           `${
-            bounds.left +
-            offsetX +
-            cRect.left +
-            cRect.width / 2 -
-            elBox.width / 2
+            bounds.left + offsetX + rect.left + rect.width / 2 - elBox.width / 2
           }px`
         )
         .css(
@@ -150,8 +146,8 @@ function showTooltip(self, evt) {
           `${
             bounds.top +
             offsetY +
-            cRect.top +
-            (3 * cRect.height) / 2 +
+            rect.top +
+            (3 * rect.height) / 2 +
             elBox.height
           }px`
         );
