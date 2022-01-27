@@ -1,9 +1,9 @@
-declare module 'x-data-spreadsheet' {
+declare module 'x-data-spreadsheet-dt4' {
   export interface ExtendToolbarOption {
     tip?: string;
     el?: HTMLElement;
     icon?: string;
-    onClick?: (data: object, sheet: object) => void
+    onClick?: (data: object, sheet: object) => void;
   }
   export interface Options {
     mode?: 'edit' | 'read';
@@ -12,8 +12,8 @@ declare module 'x-data-spreadsheet' {
     showContextmenu?: boolean;
     showBottomBar?: boolean;
     extendToolbar?: {
-      left?: ExtendToolbarOption[],
-      right?: ExtendToolbarOption[],
+      left?: ExtendToolbarOption[];
+      right?: ExtendToolbarOption[];
     };
     autoFocus?: boolean;
     view?: {
@@ -89,7 +89,7 @@ declare module 'x-data-spreadsheet' {
   export interface RowData {
     cells: {
       [key: number]: CellData;
-    }
+    };
   }
 
   /**
@@ -105,7 +105,7 @@ declare module 'x-data-spreadsheet' {
       [key: number]: ColProperties;
     };
     rows?: {
-      [key: number]: RowData
+      [key: number]: RowData;
     };
   }
 
@@ -121,7 +121,7 @@ declare module 'x-data-spreadsheet' {
     valign?: 'top' | 'middle' | 'bottom';
     font?: {
       bold?: boolean;
-    }
+    };
     bgcolor?: string;
     textwrap?: boolean;
     color?: string;
@@ -202,8 +202,10 @@ declare module 'x-data-spreadsheet' {
   }
   global {
     interface Window {
-      x_spreadsheet(container: string | HTMLElement, opts?: Options): Spreadsheet; 
+      x_spreadsheet(
+        container: string | HTMLElement,
+        opts?: Options
+      ): Spreadsheet;
     }
   }
 }
-
