@@ -132,14 +132,28 @@ function showTooltip(self, evt) {
       targetEl.el.appendChild(tooltipEl.el);
       const elBox = tooltipEl.box();
       const bounds = targetEl.el.getBoundingClientRect();
+      const offsetX = data.settings.tooltip ? data.settings.tooltip.offsetX : 0;
+      const offsetY = data.settings.tooltip ? data.settings.tooltip.offsetY : 0;
       tooltipEl
         .css(
           'left',
-          `${bounds.left + cRect.left + cRect.width / 2 - elBox.width / 2}px`
+          `${
+            bounds.left +
+            offsetX +
+            cRect.left +
+            cRect.width / 2 -
+            elBox.width / 2
+          }px`
         )
         .css(
           'top',
-          `${bounds.top + cRect.top + (3 * cRect.height) / 2 + elBox.height}px`
+          `${
+            bounds.top +
+            offsetY +
+            cRect.top +
+            (3 * cRect.height) / 2 +
+            elBox.height
+          }px`
         );
     }
   } else if (!cell) {
@@ -147,7 +161,6 @@ function showTooltip(self, evt) {
     destroyTooltip(self);
   }
 }
-
 function destroyTooltip(self) {
   // Destroy any current tooltip
   const { targetEl } = self;
