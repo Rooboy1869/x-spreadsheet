@@ -15,6 +15,7 @@
         height="30px"
       ></iframe>
     </div>
+    <div style="width: 100px; height: 100px; background-color: green"></div>
     <div id="x-spreadsheet-demo"></div>
     <script>
       function load() {
@@ -51,8 +52,8 @@
           2: {
             cells: {
               0: { checkbox: true },
-              1: { text: 'Hello', tooltip: 'This shows an error' },
-              2: { text: 'haha', merge: [1, 1] }
+              1: { text: 'Hello', tooltip: 'Hello' },
+              2: { text: 'haha', merge: [1, 1], tooltip: 'haha' }
             }
           },
           3: {
@@ -82,7 +83,7 @@
           },
           8: {
             cells: {
-              8: { text: 'border test', style: 0 }
+              8: { text: 'border test', style: 0, tooltip: 'border test' }
             }
           }
         };

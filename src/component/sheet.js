@@ -115,35 +115,52 @@ function selectorMove(multiple, direction) {
 let tooltipCell = null;
 let tooltipEl = null;
 
-function showTooltip(evt, data) {
+function showTooltip(data, evt) {
+  const element = document.getElementById('x-spreadsheet-demo');
+
   // Get the cell the mouse is over
   const cRect = data.getCellRectByXY(evt.offsetX, evt.offsetY);
   const cell = data.getCell(cRect.ri, cRect.ci);
   if (cell && JSON.stringify(cell) !== tooltipCell) {
     // Destroy any current tooltip
-    if (tooltipEl && document.body.contains(tooltipEl.el)) {
-      document.body.removeChild(tooltipEl.el);
-      tooltipCell = null;
-    }
+    destroyTooltip();
 
     // Create and show the new tooltip
-    console.log('marcel cell.tooltip', cell.tooltip);
     if (cell.tooltip) {
       tooltipCell = JSON.stringify(cell);
       tooltipEl = h('div', `${cssPrefix}-tooltip`).html(cell.tooltip).show();
-      document.body.appendChild(tooltipEl.el);
+      element.appendChild(tooltipEl.el);
       const elBox = tooltipEl.box();
+      const bounds = element.getBoundingClientRect();
       tooltipEl
-        .css('left', `${cRect.left + cRect.width / 2 - elBox.width / 2}px`)
-        .css('top', `${cRect.top + (3 * cRect.height) / 2 + elBox.height}px`);
+        .css(
+          'left',
+          `${bounds.left + cRect.left + cRect.width / 2 - elBox.width / 2}px`
+        )
+        .css(
+          'top',
+          `${bounds.top + cRect.top + (3 * cRect.height) / 2 + elBox.height}px`
+        );
     }
+  } else if (!cell) {
+    // Destroy any current tooltip
+    destroyTooltip();
+  }
+}
+
+function destroyTooltip() {
+  // Destroy any current tooltip
+  const element = document.getElementById('x-spreadsheet-demo');
+  if (tooltipEl && element.contains(tooltipEl.el)) {
+    element.removeChild(tooltipEl.el);
+    tooltipCell = null;
   }
 }
 
 // private methods
 function overlayerMousemove(evt) {
   // Show any tooltip
-  showTooltip(evt, this.data);
+  showTooltip(this.data, evt);
 
   // console.log('x:', evt.offsetX, ', y:', evt.offsetY);
   if (evt.buttons !== 0) return;
