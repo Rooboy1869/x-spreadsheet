@@ -112,8 +112,38 @@ function selectorMove(multiple, direction) {
   scrollbarMove.call(this);
 }
 
+let tooltipCell = null;
+let tooltipEl = null;
+
+function showTooltip(evt, data) {
+  // Get the cell the mouse is over
+  const cRect = data.getCellRectByXY(evt.offsetX, evt.offsetY);
+  const cell = data.getCell(cRect.ri, cRect.ci);
+  if (cell && JSON.stringify(cell) !== tooltipCell) {
+    // Destroy any current tooltip
+    if (tooltipEl && document.body.contains(tooltipEl.el)) {
+      document.body.removeChild(tooltipEl.el);
+      tooltipCell = null;
+    }
+
+    // Create and show the new tooltip
+    if (cell.tooltip) {
+      tooltipCell = JSON.stringify(cell);
+      tooltipEl = h('div', `${cssPrefix}-tooltip`).html(cell.tooltip).show();
+      document.body.appendChild(tooltipEl.el);
+      const elBox = tooltipEl.box();
+      tooltipEl
+        .css('left', `${cRect.left + cRect.width / 2 - elBox.width / 2}px`)
+        .css('top', `${cRect.top + (3 * cRect.height) / 2 + elBox.height}px`);
+    }
+  }
+}
+
 // private methods
 function overlayerMousemove(evt) {
+  // Show any tooltip
+  showTooltip(evt, this.data);
+
   // console.log('x:', evt.offsetX, ', y:', evt.offsetY);
   if (evt.buttons !== 0) return;
   if (evt.target.className === `${cssPrefix}-resizer-hover`) return;
