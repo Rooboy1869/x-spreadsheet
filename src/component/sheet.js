@@ -127,6 +127,7 @@ function showTooltip(evt, data) {
     }
 
     // Create and show the new tooltip
+    console.log('marcel cell.tooltip', cell.tooltip);
     if (cell.tooltip) {
       tooltipCell = JSON.stringify(cell);
       tooltipEl = h('div', `${cssPrefix}-tooltip`).html(cell.tooltip).show();
