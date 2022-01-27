@@ -488,6 +488,7 @@ function editorSet() {
   const { editor, data } = this;
   const selectedCell = data.getSelectedCell();
   if (data.settings.mode === 'read' || selectedCell.checkbox) return;
+  destroyTooltip(this);
   editorSetOffset.call(this);
   editor.setCell(selectedCell, data.getSelectedValidator());
   clearClipboard.call(this);
