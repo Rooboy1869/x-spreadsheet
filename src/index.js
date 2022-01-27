@@ -7,32 +7,41 @@ import { cssPrefix } from './config';
 import { locale } from './locale/locale';
 import './index.less';
 
-
 class Spreadsheet {
   constructor(selectors, options = {}) {
     let targetEl = selectors;
+    this.selectors = selectors;
     this.options = { showBottomBar: true, ...options };
     this.sheetIndex = 1;
     this.datas = [];
     if (typeof selectors === 'string') {
       targetEl = document.querySelector(selectors);
     }
-    this.bottombar = this.options.showBottomBar ? new Bottombar(() => {
-      if (this.options.mode === 'read') return;
-      const d = this.addSheet();
-      this.sheet.resetData(d);
-    }, (index) => {
-      const d = this.datas[index];
-      this.sheet.resetData(d);
-    }, () => {
-      this.deleteSheet();
-    }, (index, value) => {
-      this.datas[index].name = value;
-      this.sheet.trigger('change');
-    }) : null;
+    this.bottombar = this.options.showBottomBar
+      ? new Bottombar(
+          () => {
+            if (this.options.mode === 'read') return;
+            const d = this.addSheet();
+            this.sheet.resetData(d);
+          },
+          (index) => {
+            const d = this.datas[index];
+            this.sheet.resetData(d);
+          },
+          () => {
+            this.deleteSheet();
+          },
+          (index, value) => {
+            this.datas[index].name = value;
+            this.sheet.trigger('change');
+          }
+        )
+      : null;
     this.data = this.addSheet();
-    const rootEl = h('div', `${cssPrefix}`)
-      .on('contextmenu', evt => evt.preventDefault());
+    const rootEl = h('div', `${cssPrefix}`).on('contextmenu', (evt) =>
+      evt.preventDefault()
+    );
+
     // create canvas element
     targetEl.appendChild(rootEl.el);
     this.sheet = new Sheet(rootEl, this.data);
@@ -87,7 +96,7 @@ class Spreadsheet {
   }
 
   getData() {
-    return this.datas.map(it => it.getData());
+    return this.datas.map((it) => it.getData());
   }
 
   cellText(ri, ci, text, sheetIndex = 0) {
@@ -136,6 +145,4 @@ if (window) {
 }
 
 export default Spreadsheet;
-export {
-  spreadsheet,
-};
+export { spreadsheet };

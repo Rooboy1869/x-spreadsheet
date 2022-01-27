@@ -1,19 +1,19 @@
 /* global window */
+import { cssPrefix } from '../config';
+import { formulas } from '../core/formula';
+import ContextMenu from './contextmenu';
+import Editor from './editor';
 import { h } from './element';
-import { bind, mouseMoveUp, bindTouch, createEventEmitter } from './event';
+import { bind, bindTouch, createEventEmitter, mouseMoveUp } from './event';
+import { xtoast } from './message';
+import ModalValidation from './modal_validation';
+import Print from './print';
 import Resizer from './resizer';
 import Scrollbar from './scrollbar';
 import Selector from './selector';
-import Editor from './editor';
-import Print from './print';
-import ContextMenu from './contextmenu';
+import SortFilter from './sort_filter';
 import Table from './table';
 import Toolbar from './toolbar/index';
-import ModalValidation from './modal_validation';
-import SortFilter from './sort_filter';
-import { xtoast } from './message';
-import { cssPrefix } from '../config';
-import { formulas } from '../core/formula';
 
 /**
  * @desc throttle fn
@@ -115,23 +115,23 @@ function selectorMove(multiple, direction) {
 let tooltipCell = null;
 let tooltipEl = null;
 
-function showTooltip(data, evt) {
-  const element = document.getElementById('x-spreadsheet-demo');
+function showTooltip(self, evt) {
+  const { data, targetEl } = self;
 
   // Get the cell the mouse is over
   const cRect = data.getCellRectByXY(evt.offsetX, evt.offsetY);
   const cell = data.getCell(cRect.ri, cRect.ci);
   if (cell && JSON.stringify(cell) !== tooltipCell) {
     // Destroy any current tooltip
-    destroyTooltip();
+    destroyTooltip(self);
 
     // Create and show the new tooltip
     if (cell.tooltip) {
       tooltipCell = JSON.stringify(cell);
       tooltipEl = h('div', `${cssPrefix}-tooltip`).html(cell.tooltip).show();
-      element.appendChild(tooltipEl.el);
+      targetEl.el.appendChild(tooltipEl.el);
       const elBox = tooltipEl.box();
-      const bounds = element.getBoundingClientRect();
+      const bounds = targetEl.el.getBoundingClientRect();
       tooltipEl
         .css(
           'left',
@@ -144,15 +144,15 @@ function showTooltip(data, evt) {
     }
   } else if (!cell) {
     // Destroy any current tooltip
-    destroyTooltip();
+    destroyTooltip(self);
   }
 }
 
-function destroyTooltip() {
+function destroyTooltip(self) {
   // Destroy any current tooltip
-  const element = document.getElementById('x-spreadsheet-demo');
-  if (tooltipEl && element.contains(tooltipEl.el)) {
-    element.removeChild(tooltipEl.el);
+  const { targetEl } = self;
+  if (tooltipEl && targetEl.el.contains(tooltipEl.el)) {
+    targetEl.el.removeChild(tooltipEl.el);
     tooltipCell = null;
   }
 }
@@ -160,7 +160,7 @@ function destroyTooltip() {
 // private methods
 function overlayerMousemove(evt) {
   // Show any tooltip
-  showTooltip(this.data, evt);
+  showTooltip(this, evt);
 
   // console.log('x:', evt.offsetX, ', y:', evt.offsetY);
   if (evt.buttons !== 0) return;
@@ -896,6 +896,7 @@ function sheetInitEvents() {
 
 export default class Sheet {
   constructor(targetEl, data) {
+    this.targetEl = targetEl;
     this.eventMap = createEventEmitter();
     const { view, showToolbar, showContextmenu } = data.settings;
     this.el = h('div', `${cssPrefix}-sheet`);
