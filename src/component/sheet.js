@@ -283,6 +283,9 @@ function overlayerMousescroll(evt) {
     throttle(moveY(evt.detail), 50);
   if (temp === tempX) throttle(moveX(deltaX), 50);
   if (temp === tempY) throttle(moveY(deltaY), 50);
+
+  // Destroy the tooltip if active
+  destroyTooltip(this);
 }
 
 function overlayerTouch(direction, distance) {
