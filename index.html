@@ -15,7 +15,6 @@
         height="30px"
       ></iframe>
     </div>
-    <div style="width: 100px; height: 100px; background-color: green"></div>
     <div id="x-spreadsheet-demo"></div>
     <script>
       function load() {
@@ -34,7 +33,7 @@
         }
         const globalCheckbox = true;
         const rows = {
-          len: 80,
+          len: 20,
           /*0: {
             cells: {
               0: { text: 'Ignore' },
@@ -135,7 +134,7 @@
           globalCheckbox,
           suggestions: {
             zones: ['Zone A', 'Zone B', 'Zone C'],
-            devices: ['Device A', 'Device B', 'Device C']
+            devices: [...Array(100).keys()].map((i) => 'Device ' + i)
           }
         })
           .loadData([
