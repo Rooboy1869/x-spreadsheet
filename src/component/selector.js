@@ -2,7 +2,8 @@ import { h } from './element';
 import { cssPrefix } from '../config';
 import { CellRange } from '../core/cell_range';
 
-const selectorHeightBorderWidth = 2 * 2 - 1;
+//const selectorHeightBorderWidth = 2 * 2 - 1;
+const selectorHeightBorderWidth = 0;
 let startZIndex = 10;
 
 class SelectorElement {

@@ -1,6 +1,6 @@
 {
   "name": "x-data-spreadsheet-dt4",
-  "version": "1.1.24",
+  "version": "1.1.25",
   "description": "a javascript xpreadsheet",
   "types": "src/index.d.ts",
   "main": "src/index.js",

@@ -18,7 +18,7 @@ function tableFixedHeaderStyle() {
   return {
     textAlign: 'center',
     textBaseline: 'middle',
-    font: `500 ${npx(12)}px Source Sans Pro`,
+    font: `500 ${npx(12)}px SEGOE UI Regular`,
     fillStyle: '#585757',
     lineWidth: thinLineWidth(),
     strokeStyle: '#e6e6e6'
