@@ -85,26 +85,37 @@ body {
   border-right: 1px solid #eee;
   padding-right: 6px;
 }
-.x-spreadsheet-border-palette .x-spreadsheet-border-palette-left .x-spreadsheet-border-palette-cell {
+.x-spreadsheet-border-palette
+  .x-spreadsheet-border-palette-left
+  .x-spreadsheet-border-palette-cell {
   width: 30px;
   height: 30px;
   cursor: pointer;
   text-align: center;
 }
-.x-spreadsheet-border-palette .x-spreadsheet-border-palette-left .x-spreadsheet-border-palette-cell .x-spreadsheet-icon-img {
+.x-spreadsheet-border-palette
+  .x-spreadsheet-border-palette-left
+  .x-spreadsheet-border-palette-cell
+  .x-spreadsheet-icon-img {
   opacity: 0.8;
 }
-.x-spreadsheet-border-palette .x-spreadsheet-border-palette-left .x-spreadsheet-border-palette-cell:hover {
+.x-spreadsheet-border-palette
+  .x-spreadsheet-border-palette-left
+  .x-spreadsheet-border-palette-cell:hover {
   background-color: #eee;
 }
 .x-spreadsheet-border-palette .x-spreadsheet-border-palette-right {
   padding-left: 6px;
 }
-.x-spreadsheet-border-palette .x-spreadsheet-border-palette-right .x-spreadsheet-toolbar-btn {
+.x-spreadsheet-border-palette
+  .x-spreadsheet-border-palette-right
+  .x-spreadsheet-toolbar-btn {
   margin-top: 0;
   margin-bottom: 3px;
 }
-.x-spreadsheet-border-palette .x-spreadsheet-border-palette-right .x-spreadsheet-line-type {
+.x-spreadsheet-border-palette
+  .x-spreadsheet-border-palette-right
+  .x-spreadsheet-line-type {
   position: relative;
   left: 0;
   top: -3px;
@@ -138,14 +149,21 @@ body {
   padding: 0 5px;
   display: inline-block;
 }
-.x-spreadsheet-dropdown .x-spreadsheet-dropdown-header .x-spreadsheet-icon.arrow-left {
+.x-spreadsheet-dropdown
+  .x-spreadsheet-dropdown-header
+  .x-spreadsheet-icon.arrow-left {
   margin-left: 4px;
 }
-.x-spreadsheet-dropdown .x-spreadsheet-dropdown-header .x-spreadsheet-icon.arrow-right {
+.x-spreadsheet-dropdown
+  .x-spreadsheet-dropdown-header
+  .x-spreadsheet-icon.arrow-right {
   width: 10px;
   margin-right: 4px;
 }
-.x-spreadsheet-dropdown .x-spreadsheet-dropdown-header .x-spreadsheet-icon.arrow-right .arrow-down {
+.x-spreadsheet-dropdown
+  .x-spreadsheet-dropdown-header
+  .x-spreadsheet-icon.arrow-right
+  .arrow-down {
   left: -130px;
 }
 /* resizer **/
@@ -386,7 +404,7 @@ body {
 }
 .x-spreadsheet-suggest {
   width: 200px;
-  max-height: 400px;
+  max-height: 350px;
   overflow: auto;
 }
 .x-spreadsheet-filter {
@@ -474,7 +492,9 @@ body {
   padding: 0 6px 6px;
   text-align: left;
 }
-.x-spreadsheet-toolbar .x-spreadsheet-toolbar-more .x-spreadsheet-toolbar-divider {
+.x-spreadsheet-toolbar
+  .x-spreadsheet-toolbar-more
+  .x-spreadsheet-toolbar-divider {
   margin-top: 0;
 }
 .x-spreadsheet-toolbar .x-spreadsheet-toolbar-btn {
@@ -558,7 +578,8 @@ body {
   margin: auto;
   page-break-before: auto;
   page-break-after: always;
-  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 3px rgba(0, 0, 0, 0.12), 0 4px 5px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 3px rgba(0, 0, 0, 0.12), 0 4px 5px 0 rgba(0, 0, 0, 0.2);
 }
 .x-spreadsheet-calendar {
   color: rgba(0, 0, 0, 0.65);
@@ -1038,6 +1059,5 @@ form fieldset select {
   left: -54px;
   top: -54px;
 }
-
 
 /*# sourceMappingURL=xspreadsheet.css.map*/
