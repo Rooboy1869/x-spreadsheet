@@ -3,8 +3,8 @@ import { getFontSizePxByPt } from '../core/font';
 import _cell from '../core/cell';
 import { formulam } from '../core/formula';
 import { formatm } from '../core/format';
-
 import { Draw, DrawBox, thinLineWidth, npx } from '../canvas/draw';
+
 // gobal var
 const cellPaddingWidth = 5;
 const tableFixedHeaderCleanStyle = { fillStyle: '#f4f5f8' };
@@ -13,6 +13,7 @@ const tableGridStyle = {
   lineWidth: thinLineWidth,
   strokeStyle: '#e6e6e6'
 };
+
 function tableFixedHeaderStyle() {
   return {
     textAlign: 'center',
@@ -257,7 +258,7 @@ function renderFixedHeaders(type, viewRange, w, h, tx, ty) {
       if (header.text) {
         draw.fillText(header.text, x + colWidth / 2, h / 2);
       } else if (header.checkbox) {
-        draw.checkbox(true, x, 0, colWidth, h, 5);
+        draw.checkbox(data.settings.globalCheckbox, x, 0, colWidth, h, 5);
       }
       if (i > 0 && data.cols.isHide(i - 1)) {
         draw.save();

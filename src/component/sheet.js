@@ -59,9 +59,37 @@ function scrollbarMove() {
 }
 
 function selectorSet(multiple, ri, ci, indexesUpdated = true, moving = false) {
-  if (ri === -1 && ci === -1) return;
+  if (ri === -1 && ci === -1) {
+    return;
+  }
+
   const { table, selector, toolbar, data, contextMenu } = this;
   const cell = data.getCell(ri, ci);
+
+  // Handle the checkboxes
+  if (
+    ri === -1 &&
+    data.settings.headers &&
+    data.settings.headers[ci].checkbox
+  ) {
+    data.settings.globalCheckbox = !data.settings.globalCheckbox;
+    Object.values(data.rows._)
+      .filter((key, i) => data.rows.getCell(i, 0))
+      .forEach((key, i) => {
+        const d = data.rows.getCell(i, 0);
+        d.checked = data.settings.globalCheckbox;
+        this.trigger('cell-checked', d, i, 0);
+      });
+    table.render();
+    return;
+  } else if (cell && cell.checkbox) {
+    cell.checked = !cell.checked;
+    table.render();
+    this.trigger('cell-checked', cell, ri, ci);
+    return;
+  }
+
+  // Handle normal mode
   if (multiple) {
     selector.setEnd(ri, ci, moving);
     this.trigger('cells-selected', cell, selector.range);
