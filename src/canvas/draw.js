@@ -202,20 +202,24 @@ class Draw {
     return this;
   }
 
-  checkbox(data, ri, ci, dbox) {
-    const { ctx } = this;
+  stroke(path) {
+    this.ctx.stroke(path);
+    return this;
+  }
 
+  checkbox(checked, x, y, width, height, padding) {
+    const { ctx } = this;
     const size = 24;
-    const checked = data.rows.getCell(ri, ci).checked;
     var path = new Path2D(
       checked
         ? 'M22 2v20h-20v-20h20zm2-2h-24v24h24v-24zm-5.541 8.409l-1.422-1.409-7.021 7.183-3.08-2.937-1.395 1.435 4.5 4.319 8.418-8.591z'
         : 'M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z'
     );
     ctx.save();
+    this.attr({ strokeStyle: 'black' });
     ctx.translate(
-      npxLine(dbox.x + (dbox.width - size) / 2 + dbox.padding),
-      npxLine(dbox.y + dbox.padding)
+      npxLine(x + (width - size) / 2 + padding),
+      npxLine(y + (height - size) / 2 + padding)
     );
     ctx.scale(0.6, 0.6);
     ctx.stroke(path);

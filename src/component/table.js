@@ -70,7 +70,15 @@ export function renderCell(draw, data, rindex, cindex, yoffset = 0) {
   }
 
   if (cell.checkbox) {
-    draw.checkbox(data, rindex, cindex, dbox);
+    const checked = data.rows.getCell(rindex, cindex).checked;
+    draw.checkbox(
+      checked,
+      dbox.x,
+      dbox.y,
+      dbox.width,
+      dbox.height,
+      dbox.padding
+    );
     return;
   }
 
@@ -243,7 +251,14 @@ function renderFixedHeaders(type, viewRange, w, h, tx, ty) {
       if (sci <= ii && ii < eci + 1) {
         renderSelectedHeaderCell.call(this, x, 0, colWidth, h);
       }
-      draw.fillText(stringAt(ii), x + colWidth / 2, h / 2);
+
+      var headers = data.settings.headers || [];
+      var header = headers[ii] || { text: stringAt(ii) };
+      if (header.text) {
+        draw.fillText(header.text, x + colWidth / 2, h / 2);
+      } else if (header.checkbox) {
+        draw.checkbox(true, x, 0, colWidth, h, 5);
+      }
       if (i > 0 && data.cols.isHide(i - 1)) {
         draw.save();
         draw.attr({ strokeStyle: '#c6c6c6' });

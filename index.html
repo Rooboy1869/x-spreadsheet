@@ -34,7 +34,7 @@
         }
         const rows = {
           len: 80,
-          0: {
+          /*0: {
             cells: {
               0: { text: 'Ignore' },
               1: { text: 'Column A' },
@@ -42,18 +42,23 @@
               3: { text: 'Column C' },
               4: { text: 'Column D' }
             }
-          },
-          1: {
+          },*/
+          0: {
             cells: {
               0: { checkbox: true },
               2: { text: 'testing' }
             }
           },
-          2: {
+          1: {
             cells: {
               0: { checkbox: true },
               1: { text: 'Hello', tooltip: 'Hello' },
               2: { text: 'haha', merge: [1, 1], tooltip: 'haha' }
+            }
+          },
+          2: {
+            cells: {
+              0: { checkbox: true }
             }
           },
           3: {
@@ -77,11 +82,6 @@
             }
           },
           7: {
-            cells: {
-              0: { checkbox: true }
-            }
-          },
-          8: {
             cells: {
               8: { text: 'border test', style: 0, tooltip: 'border test' }
             }
@@ -119,7 +119,12 @@
                 }
               }
             ]
-          }
+          },
+          headers: [
+            { checkbox: true },
+            { text: 'Column B' },
+            { text: 'Column C' }
+          ]
         })
           .loadData([
             {
