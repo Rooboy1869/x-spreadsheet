@@ -15,7 +15,6 @@
         height="30px"
       ></iframe>
     </div>
-    <div style="width: 100px; height: 100px; background-color: green"></div>
     <div id="x-spreadsheet-demo"></div>
     <script>
       function load() {
@@ -32,9 +31,10 @@
             }
           };
         }
+        const globalCheckbox = true;
         const rows = {
-          len: 80,
-          0: {
+          len: 20,
+          /*0: {
             cells: {
               0: { text: 'Ignore' },
               1: { text: 'Column A' },
@@ -42,46 +42,52 @@
               3: { text: 'Column C' },
               4: { text: 'Column D' }
             }
+          },*/
+          0: {
+            cells: {
+              0: { checkbox: true, checked: globalCheckbox },
+              2: { text: 'testing' }
+            }
           },
           1: {
             cells: {
-              0: { checkbox: true },
-              2: { text: 'testing' }
+              0: { checkbox: true, checked: globalCheckbox },
+              1: {
+                text: 'Hello',
+                tooltip: 'Hello'
+              },
+              2: { text: 'haha', merge: [1, 1], tooltip: 'haha' }
             }
           },
           2: {
             cells: {
-              0: { checkbox: true },
-              1: { text: 'Hello', tooltip: 'Hello' },
-              2: { text: 'haha', merge: [1, 1], tooltip: 'haha' }
+              0: {
+                checkbox: true,
+                checked: globalCheckbox
+              }
             }
           },
           3: {
             cells: {
-              0: { checkbox: true }
+              0: { checkbox: true, checked: globalCheckbox }
             }
           },
           4: {
             cells: {
-              0: { checkbox: true }
+              0: { checkbox: true, checked: globalCheckbox }
             }
           },
           5: {
             cells: {
-              0: { checkbox: true }
+              0: { checkbox: true, checked: globalCheckbox }
             }
           },
           6: {
             cells: {
-              0: { checkbox: true }
+              0: { checkbox: true, checked: globalCheckbox }
             }
           },
           7: {
-            cells: {
-              0: { checkbox: true }
-            }
-          },
-          8: {
             cells: {
               8: { text: 'border test', style: 0, tooltip: 'border test' }
             }
@@ -119,6 +125,16 @@
                 }
               }
             ]
+          },
+          columns: [
+            { checkbox: true },
+            { text: 'Zones', suggestion: 'zones' },
+            { text: 'Devices', suggestion: 'devices' }
+          ],
+          globalCheckbox,
+          suggestions: {
+            zones: ['Zone A', 'Zone B', 'Zone C'],
+            devices: [...Array(100).keys()].map((i) => 'Device ' + i)
           }
         })
           .loadData([
@@ -154,15 +170,20 @@
 
         xs.on('cell-selected', (cell, ri, ci, data) => {
           console.log('cell:', cell, ', ri:', ri, ', ci:', ci);
-
-          if (cell && cell.checkbox) {
-            const d = data.rows.getCell(ri, ci);
-            d.checked = !d.checked;
-            xs.reRender();
-          }
-        }).on('cell-edited', (text, ri, ci) => {
-          console.log('text:', text, ', ri: ', ri, ', ci:', ci);
-        });
+        })
+          .on('cell-edited', (text, ri, ci) => {
+            console.log('text:', text, ', ri: ', ri, ', ci:', ci);
+          })
+          .on('cell-checked', (cell, ri, ci) => {
+            console.log(
+              'cell-checked:',
+              cell.checked,
+              ', ri: ',
+              ri,
+              ', ci:',
+              ci
+            );
+          });
 
         setTimeout(() => {
           // xs.loadData([{ rows }]);
