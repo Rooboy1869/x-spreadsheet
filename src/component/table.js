@@ -253,11 +253,11 @@ function renderFixedHeaders(type, viewRange, w, h, tx, ty) {
         renderSelectedHeaderCell.call(this, x, 0, colWidth, h);
       }
 
-      var headers = data.settings.headers || [];
-      var header = headers[ii] || { text: stringAt(ii) };
-      if (header.text) {
-        draw.fillText(header.text, x + colWidth / 2, h / 2);
-      } else if (header.checkbox) {
+      var columns = data.settings.columns || [];
+      var column = columns[ii] || { text: stringAt(ii) };
+      if (column.text) {
+        draw.fillText(column.text, x + colWidth / 2, h / 2);
+      } else if (column.checkbox) {
         draw.checkbox(data.settings.globalCheckbox, x, 0, colWidth, h, 5);
       }
       if (i > 0 && data.cols.isHide(i - 1)) {

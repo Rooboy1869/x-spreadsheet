@@ -69,8 +69,9 @@ function selectorSet(multiple, ri, ci, indexesUpdated = true, moving = false) {
   // Handle the checkboxes
   if (
     ri === -1 &&
-    data.settings.headers &&
-    data.settings.headers[ci].checkbox
+    data.settings.columns &&
+    data.settings.columns[ci] &&
+    data.settings.columns[ci].checkbox
   ) {
     data.settings.globalCheckbox = !data.settings.globalCheckbox;
     Object.values(data.rows._)
@@ -518,7 +519,7 @@ function editorSet() {
     return;
   destroyTooltip(this);
   editorSetOffset.call(this);
-  editor.setCell(selectedCell, data.getSelectedValidator());
+  editor.setCell(selectedCell, data.getSelectedValidator(), data.selector);
   clearClipboard.call(this);
 }
 

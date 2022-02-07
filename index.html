@@ -47,7 +47,7 @@
           0: {
             cells: {
               0: { checkbox: true, checked: globalCheckbox },
-              2: { text: 'testing', suggestion: 'devices' }
+              2: { text: 'testing' }
             }
           },
           1: {
@@ -55,8 +55,7 @@
               0: { checkbox: true, checked: globalCheckbox },
               1: {
                 text: 'Hello',
-                tooltip: 'Hello',
-                suggestion: 'zones'
+                tooltip: 'Hello'
               },
               2: { text: 'haha', merge: [1, 1], tooltip: 'haha' }
             }
@@ -128,10 +127,10 @@
               }
             ]
           },
-          headers: [
+          columns: [
             { checkbox: true },
-            { text: 'Column B' },
-            { text: 'Column C' }
+            { text: 'Zones', suggestion: 'zones' },
+            { text: 'Devices', suggestion: 'devices' }
           ],
           globalCheckbox,
           suggestions: {

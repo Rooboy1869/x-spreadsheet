@@ -58,7 +58,7 @@ function keydownEventHandler(evt) {
 function inputEventHandler(evt) {
   const v = evt.target.value;
   // console.log(evt, 'v:', v);
-  const { suggest, textlineEl, validator } = this;
+  const { suggest, textlineEl, validator, settings } = this;
   const { cell } = this;
   if (cell !== null) {
     if (
@@ -72,15 +72,14 @@ function inputEventHandler(evt) {
         } else {
           suggest.hide();
         }
-      } else if (cell.suggestion) {
-        suggest.search(v);
       } else {
-        const start = v.lastIndexOf('=');
+        /*const start = v.lastIndexOf('=');
         if (start !== -1) {
           suggest.search(v.substring(start + 1));
         } else {
           suggest.hide();
-        }
+        }*/
+        suggest.search(v);
       }
       textlineEl.html(v);
       resetTextareaSize.call(this);
@@ -257,7 +256,7 @@ export default class Editor {
     }
   }
 
-  setCell(cell, validator) {
+  setCell(cell, validator, selector) {
     // console.log('::', validator);
     const { el, datepicker, suggest, settings } = this;
     el.show();
@@ -279,8 +278,14 @@ export default class Editor {
         suggest.search('');
       }
     } else {
-      if (cell && cell.suggestion) {
-        suggest.setItems(settings.suggestions[cell.suggestion]);
+      if (
+        settings.columns &&
+        settings.columns[selector.ci] &&
+        settings.columns[selector.ci].suggestion
+      ) {
+        suggest.setItems(
+          settings.suggestions[settings.columns[selector.ci].suggestion]
+        );
         suggest.search('');
       }
     }
