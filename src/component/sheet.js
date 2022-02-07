@@ -514,7 +514,8 @@ function editorSetOffset() {
 function editorSet() {
   const { editor, data } = this;
   const selectedCell = data.getSelectedCell();
-  if (data.settings.mode === 'read' || selectedCell.checkbox) return;
+  if (data.settings.mode === 'read' || (selectedCell && selectedCell.checkbox))
+    return;
   destroyTooltip(this);
   editorSetOffset.call(this);
   editor.setCell(selectedCell, data.getSelectedValidator());
@@ -957,7 +958,8 @@ export default class Sheet {
     this.editor = new Editor(
       formulas,
       () => this.getTableOffset(),
-      data.rows.height
+      data.rows.height,
+      data.settings
     );
     // data validation
     this.modalValidation = new ModalValidation();

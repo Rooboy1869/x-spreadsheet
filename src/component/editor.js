@@ -72,6 +72,8 @@ function inputEventHandler(evt) {
         } else {
           suggest.hide();
         }
+      } else if (cell.suggestion) {
+        suggest.search(v);
       } else {
         const start = v.lastIndexOf('=');
         if (start !== -1) {
@@ -141,10 +143,15 @@ function suggestItemClick(it) {
     } else {
       eit = '';
     }
-    this.inputText = `${sit + it.key}(`;
-    // console.log('inputText:', this.inputText);
-    position = this.inputText.length;
-    this.inputText += `)${eit}`;
+    if (it.key) {
+      this.inputText = `${sit + it.key}(`;
+      // console.log('inputText:', this.inputText);
+      position = this.inputText.length;
+      this.inputText += `)${eit}`;
+    } else {
+      this.inputText = `${it}`;
+      position = this.inputText.length;
+    }
   }
   setText.call(this, this.inputText, position);
 }
@@ -162,10 +169,11 @@ function dateFormat(d) {
 }
 
 export default class Editor {
-  constructor(formulas, viewFn, rowHeight) {
+  constructor(formulas, viewFn, rowHeight, settings) {
     this.viewFn = viewFn;
     this.rowHeight = rowHeight;
     this.formulas = formulas;
+    this.settings = settings;
     this.suggest = new Suggest(formulas, (it) => {
       suggestItemClick.call(this, it);
     });
@@ -251,7 +259,7 @@ export default class Editor {
 
   setCell(cell, validator) {
     // console.log('::', validator);
-    const { el, datepicker, suggest } = this;
+    const { el, datepicker, suggest, settings } = this;
     el.show();
     this.cell = cell;
     const text = (cell && cell.text) || '';
@@ -268,6 +276,11 @@ export default class Editor {
       }
       if (type === 'list') {
         suggest.setItems(validator.values());
+        suggest.search('');
+      }
+    } else {
+      if (cell && cell.suggestion) {
+        suggest.setItems(settings.suggestions[cell.suggestion]);
         suggest.search('');
       }
     }

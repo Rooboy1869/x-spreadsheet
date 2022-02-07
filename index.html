@@ -47,19 +47,26 @@
           0: {
             cells: {
               0: { checkbox: true, checked: globalCheckbox },
-              2: { text: 'testing' }
+              2: { text: 'testing', suggestion: 'devices' }
             }
           },
           1: {
             cells: {
               0: { checkbox: true, checked: globalCheckbox },
-              1: { text: 'Hello', tooltip: 'Hello' },
+              1: {
+                text: 'Hello',
+                tooltip: 'Hello',
+                suggestion: 'zones'
+              },
               2: { text: 'haha', merge: [1, 1], tooltip: 'haha' }
             }
           },
           2: {
             cells: {
-              0: { checkbox: true, checked: globalCheckbox }
+              0: {
+                checkbox: true,
+                checked: globalCheckbox
+              }
             }
           },
           3: {
@@ -126,7 +133,11 @@
             { text: 'Column B' },
             { text: 'Column C' }
           ],
-          globalCheckbox
+          globalCheckbox,
+          suggestions: {
+            zones: ['Zone A', 'Zone B', 'Zone C'],
+            devices: ['Device A', 'Device B', 'Device C']
+          }
         })
           .loadData([
             {
