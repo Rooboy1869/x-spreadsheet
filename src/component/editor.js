@@ -283,9 +283,10 @@ export default class Editor {
         settings.columns[selector.ci] &&
         settings.columns[selector.ci].suggestion
       ) {
-        suggest.setItems(
-          settings.suggestions[settings.columns[selector.ci].suggestion]
-        );
+        var suggestions = [
+          ...settings.suggestions[settings.columns[selector.ci].suggestion]
+        ].sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
+        suggest.setItems(suggestions);
         suggest.search('');
       }
     }
